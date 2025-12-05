@@ -1,6 +1,7 @@
 {
   "name": "Memory Match",
   "short_name": "Match",
+  "description": "A cute and fun card matching game with adorable icons!",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f0e5d8",
