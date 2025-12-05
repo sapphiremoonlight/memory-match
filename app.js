@@ -5,45 +5,49 @@ let cards = [];
 let flippedCards = [];
 let matchedCards = [];
 
+// Generate the card board
 function generateBoard() {
-  // Duplicate the icons to make pairs, then shuffle them
-  const gameIcons = [...icons, ...icons];
-  cards = gameIcons.sort(() => Math.random() - 0.5); // Shuffle the array
+  const gameIcons = [...icons, ...icons]; // duplicate for pairs
+  cards = gameIcons.sort(() => Math.random() - 0.5); // shuffle
 
-  // Create card elements
   board.innerHTML = '';
   for (let i = 0; i < cards.length; i++) {
     const cardElement = document.createElement('div');
     cardElement.classList.add('card');
     cardElement.setAttribute('data-id', i);
+
+    // Support both click and touch for mobile
     cardElement.addEventListener('click', flipCard);
+    cardElement.addEventListener('touchstart', flipCard);
+
     board.appendChild(cardElement);
   }
 }
 
+// Flip a card
 function flipCard(event) {
-  const clickedCard = event.target;
+  const clickedCard = event.currentTarget; // use currentTarget for touch/click consistency
 
-  if (flippedCards.length === 2 || clickedCard.classList.contains('flipped')) {
-    return; // If two cards are already flipped, or this card is already flipped, do nothing
-  }
+  if (flippedCards.length === 2 || clickedCard.classList.contains('flipped')) return;
 
-  // Flip the card
   const cardId = clickedCard.getAttribute('data-id');
   clickedCard.classList.add('flipped');
   clickedCard.textContent = cards[cardId];
   flippedCards.push({ card: clickedCard, id: cardId });
 
   if (flippedCards.length === 2) {
-    checkMatch();
+    setTimeout(checkMatch, 500); // slight delay before checking
   }
 }
 
+// Check if flipped cards match
 function checkMatch() {
   const [card1, card2] = flippedCards;
-  if (card1.id === card2.id) {
+
+  if (cards[card1.id] === cards[card2.id]) { // Compare emojis, not positions
     matchedCards.push(card1.card, card2.card);
     flippedCards = [];
+
     if (matchedCards.length === cards.length) {
       message.textContent = "You win! 🎉";
     }
@@ -54,14 +58,22 @@ function checkMatch() {
       card1.card.classList.remove('flipped');
       card2.card.classList.remove('flipped');
       flippedCards = [];
-    }, 1000); // Wait 1 second before flipping back
+    }, 1000);
   }
 }
 
+// Register service worker
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-    console.log('Service Worker registered with scope:', registration.scope);
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
   });
 }
 
+// Initialize game
 generateBoard();
