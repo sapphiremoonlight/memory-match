@@ -72,7 +72,7 @@
             width: 50px;
             height: 70px;
             border-radius: 50%;
-            opacity: .85;
+            opacity: 0.85;
             animation: floatBalloon linear forwards;
         }
 
@@ -202,7 +202,11 @@
             object-fit: cover;
         }
 
-        /* Envelope */
+        /* Envelope + Message */
+        #message-page {
+            display: none;
+        }
+
         #letter-wrapper {
             margin-top: 20px;
         }
@@ -224,7 +228,6 @@
             transform: scale(1.05) rotate(-2deg);
         }
 
-        /* Letter */
         #message-section {
             display: none;
             background: #fffafc;
@@ -302,11 +305,37 @@
             cursor: pointer;
             color: #ff1493;
         }
+
+        @media(max-width:600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            #cake {
+                width: 220px;
+            }
+
+            .polaroid {
+                width: 120px;
+                height: 120px;
+            }
+
+            .gallery {
+                display: grid;
+                grid-template-columns: repeat(2, 150px);
+                /* two columns, fixed width */
+                gap: 18px;
+                justify-content: center;
+                /* center the whole grid */
+                margin-bottom: 40px;
+            }
+        }
     </style>
 </head>
 
 <body class="desktop">
 
+    <!-- Loading -->
     <div id="loading">
         <img src="kitty-1.png">
         <img src="kitty-2.png">
@@ -315,9 +344,9 @@
     </div>
 
     <div class="main">
-
         <h1>Happy 14th Birthday, Thando!</h1>
 
+        <!-- Home Page -->
         <div id="home-section">
             <img id="cake" src="cake.png">
             <div class="gallery">
@@ -330,16 +359,20 @@
             </div>
         </div>
 
-        <div id="letter-wrapper">
-            <div id="envelope">💌 Click to open your birthday letter</div>
-            <div id="message-section">
-                <h2>💖 A Special Birthday Message 💖</h2>
-                <div id="birthday-message"></div>
+        <!-- Message Page -->
+        <div id="message-page">
+            <div id="letter-wrapper">
+                <div id="envelope">💌 Click to open your birthday letter</div>
+                <div id="message-section">
+                    <h2>💖 A Special Birthday Message 💖</h2>
+                    <div id="birthday-message"></div>
+                </div>
             </div>
         </div>
 
     </div>
 
+    <!-- Bottom nav -->
     <div id="nav">
         <button class="nav-btn" id="home-btn"><i class="fas fa-home"></i></button>
         <button class="nav-btn" id="message-btn"><i class="fas fa-envelope"></i></button>
@@ -360,7 +393,7 @@
             }, 1200);
         });
 
-        /* Sparkles */
+        // Sparkles
         function spawnSparkles() {
             const cake = document.getElementById('cake');
             setInterval(() => {
@@ -374,9 +407,10 @@
             }, 300);
         }
 
-        /* Balloons */
+        // Balloons
         function spawnBalloons() {
-            const colors = ['#ff69b4', '#43e8d8', '#ff77aa', '#B0E0E6', '#ffc0cb'];
+            const colors = ['#ff69b4', '#43e8d8', '#ff77aa', '#B0E0E6', '#fff0f5', '#89ecda', '#bcf5f9', '#ffc0cb', '#ff8da1'];
+            const body = document.body;
             setInterval(() => {
                 const balloon = document.createElement('div');
                 balloon.classList.add('balloon');
@@ -384,12 +418,12 @@
                 balloon.style.bottom = '-80px';
                 balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
                 balloon.style.animationDuration = (5 + Math.random() * 5) + 's';
-                document.body.appendChild(balloon);
-                setTimeout(() => balloon.remove(), 6000);
+                body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 5200);
             }, 600);
         }
 
-        /* Confetti */
+        // Confetti on cake
         document.getElementById('cake').addEventListener('click', () => {
             for (let i = 0; i < 50; i++) {
                 const c = document.createElement('div');
@@ -402,26 +436,19 @@
                 c.style.borderRadius = '50%';
                 c.style.pointerEvents = 'none';
                 document.body.appendChild(c);
-                c.animate([
-                    { transform: 'translate(0,0)', opacity: 1 },
-                    { transform: `translate(${(Math.random() - .5) * 300}px,${-Math.random() * 400}px)`, opacity: 0 }
-                ], { duration: 2000 + Math.random() * 1000, fill: 'forwards' });
+                c.animate([{ transform: 'translate(0,0)', opacity: 1 }, { transform: `translate(${(Math.random() - .5) * 300}px,${-Math.random() * 400}px)`, opacity: 0 }], { duration: 2000 + Math.random() * 1000, fill: 'forwards' });
                 setTimeout(() => c.remove(), 3000);
             }
         });
 
-        /* Letter + Typewriter */
+        // Letter typewriter
         const envelope = document.getElementById("envelope");
         const messageSection = document.getElementById("message-section");
         const messageElement = document.getElementById("birthday-message");
-
         const messageText = `Happy 14th Birthday, Thando! 🎉
-        You're growing into such an amazing, kind, and beautiful person. Keep being the life of the party and lighting up every room with your smile. Watching you grow has been such a blessing.
-        Never forget how loved you are, how special you are, and how bright your future is. 💖 I hope this year is filled with laughter, happiness, and everything your heart dreams of.`;
-
-        let index = 0;
-        let hasTyped = false;
-
+You're growing into such an amazing, kind, and beautiful person. Keep being the life of the party and lighting up every room with your smile. Watching you grow has been such a blessing.
+Never forget how loved you are, how special you are, and how bright your future is. 💖 I hope this year is filled with laughter, happiness, and everything your heart dreams of.`;
+        let index = 0, hasTyped = false;
         function typeWriter() {
             if (index < messageText.length) {
                 messageElement.innerHTML += messageText.charAt(index);
@@ -429,40 +456,32 @@
                 setTimeout(typeWriter, 35);
             }
         }
-
         envelope.addEventListener("click", () => {
             envelope.style.display = "none";
             messageSection.style.display = "block";
             messageSection.classList.add("fade-in");
-            if (!hasTyped) {
-                typeWriter();
-                hasTyped = true;
-            }
+            if (!hasTyped) { typeWriter(); hasTyped = true; }
         });
 
-        /* Navigation */
+        // Navigation
         const homeBtn = document.getElementById('home-btn');
         const messageBtn = document.getElementById('message-btn');
         const homeSection = document.getElementById('home-section');
+        const messagePage = document.getElementById('message-page');
 
         homeBtn.addEventListener('click', () => {
             homeSection.style.display = 'block';
-            messageSection.style.display = 'none';
-            envelope.style.display = 'block';
+            messagePage.style.display = 'none';
         });
-
         messageBtn.addEventListener('click', () => {
             homeSection.style.display = 'none';
-            envelope.style.display = 'block';
-            messageSection.style.display = 'none';
-            document.getElementById('letter-wrapper').scrollIntoView({ behavior: 'smooth' });
+            messagePage.style.display = 'block';
         });
 
-        /* Music */
+        // Music
         const music = document.getElementById('birthday-music');
         const musicBtn = document.getElementById('music-btn');
         let musicPlaying = false;
-
         musicBtn.addEventListener('click', () => {
             if (musicPlaying) {
                 music.pause();
