@@ -30,6 +30,7 @@
             background: linear-gradient(to bottom, #ffe4f0, #fff0f5);
             color: #ff1493;
             position: relative;
+            min-height: 100%;
             overflow-x: hidden;
         }
 
@@ -328,6 +329,53 @@
                 justify-content: center;
                 /* center the whole grid */
                 margin-bottom: 40px;
+            }
+
+            .main {
+                max-height: 100vh;
+                /* limit to viewport height */
+                overflow-y: auto;
+                /* enable vertical scroll */
+                padding-bottom: 120px;
+                /* extra space for fixed nav */
+            }
+
+            html,
+            body {
+                overflow-y: scroll;
+                /* ensures vertical scrollbar appears */
+            }
+        }
+
+        html,
+        body {
+            overflow-x: auto;
+            /* allow horizontal scroll if needed */
+        }
+
+        /* Gallery for small screens */
+        @media(max-width: 400px) {
+            .gallery {
+                display: grid;
+                grid-template-columns: repeat(2, 150px);
+                /* 2 columns */
+                gap: 18px;
+                justify-content: start;
+                /* left-align so you can scroll */
+                overflow-x: auto;
+                /* allow horizontal scroll if needed */
+                padding-bottom: 20px;
+                /* extra padding for bottom nav */
+            }
+
+            .polaroid {
+                width: 150px;
+                height: 150px;
+            }
+
+            .main {
+                padding-bottom: 120px;
+                /* prevent bottom nav from overlapping */
             }
         }
     </style>
