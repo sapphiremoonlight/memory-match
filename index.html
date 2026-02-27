@@ -5,18 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎀 Happy Birthday Thando! 🎀</title>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Favicon for browsers -->
+
     <link rel="icon" type="image/png" href="icon.png">
-
-    <!-- Apple devices -->
     <link rel="apple-touch-icon" href="icon.png">
-
-    <!-- Android / Chrome -->
     <link rel="icon" type="image/png" sizes="192x192" href="icon.png">
-    
-    <!-- Optional theme color -->
     <meta name="theme-color" content="#ffe4f0">
 
     <style>
@@ -24,23 +19,20 @@
             font-family: 'HelloKitty';
             src: url('HelloKitty.ttf') format('truetype'),
                 url('HelloKitty.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
         }
 
-        /* Body */
         html,
         body {
             margin: 0;
             padding: 0;
             min-height: 100%;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(to bottom, #ffe4f0, #fff0f5);
             color: #ff1493;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* Desktop cursor */
         body.desktop {
             cursor: url('kitty-bow-cursor.png'), auto;
         }
@@ -59,17 +51,17 @@
 
         @keyframes sparkleAnim {
             0% {
-                transform: translate(0, 0) scale(0.5);
+                transform: translate(0, 0) scale(.5);
                 opacity: 1;
             }
 
             50% {
                 transform: translate(10px, -10px) scale(1);
-                opacity: 0.6;
+                opacity: .6;
             }
 
             100% {
-                transform: translate(0, -20px) scale(0.3);
+                transform: translate(0, -20px) scale(.3);
                 opacity: 0;
             }
         }
@@ -79,10 +71,9 @@
             position: absolute;
             width: 50px;
             height: 70px;
-            background: radial-gradient(circle at 30% 30%, #fff, #ff69b4);
             border-radius: 50%;
-            opacity: 0.8;
-            animation: floatBalloon linear infinite;
+            opacity: .85;
+            animation: floatBalloon linear forwards;
         }
 
         @keyframes floatBalloon {
@@ -90,16 +81,19 @@
                 transform: translateY(0) rotate(0deg);
             }
 
+            95% {
+                transform: translateY(-95vh) rotate(360deg);
+            }
+
             100% {
-                transform: translateY(-120vh) rotate(360deg);
+                transform: scale(0);
+                opacity: 0;
             }
         }
 
-        /* Loading Screen */
+        /* Loading */
         #loading {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             background: #fff0f5;
@@ -120,7 +114,7 @@
 
             0%,
             100% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0);
             }
 
             50% {
@@ -129,13 +123,10 @@
         }
 
         #loading-text {
-            color: #ff69b4;
             font-family: 'HelloKitty', cursive;
             font-size: 2.5rem;
-            text-shadow: 2px 2px #fff0f5;
+            color: #ff69b4;
             animation: pulse 1.2s infinite;
-            margin-top: 15px;
-            text-align: center;
         }
 
         @keyframes pulse {
@@ -150,22 +141,16 @@
             }
         }
 
-        /* Main content */
         .main {
             display: none;
-            padding: 20px 15px;
+            padding: 20px 15px 100px;
             text-align: center;
         }
 
-        /* Header */
         h1 {
             font-family: 'HelloKitty', cursive;
-            color: #ff69b4;
             font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px #fff0f5;
-            animation: fadeIn 1.5s ease forwards;
-            opacity: 0;
+            color: #ff69b4;
         }
 
         /* Cake */
@@ -175,14 +160,8 @@
             margin: 20px auto 40px;
             border-radius: 25px;
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
             animation: floatCake 2s ease-in-out infinite;
-        }
-
-        #cake:hover {
-            transform: scale(1.08) rotate(-2deg);
-            box-shadow: 0 14px 20px rgba(0, 0, 0, 0.3);
         }
 
         @keyframes floatCake {
@@ -202,64 +181,111 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 18px;
-            justify-items: center;
             margin-bottom: 40px;
         }
 
         .polaroid {
-            background: #fff;
+            background: white;
             padding: 10px;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
             border-radius: 15px;
-            width: 150px;
-            height: 150px;
-            overflow: hidden;
-            transition: transform 0.4s;
-            cursor: pointer;
-        }
-
-        .polaroid img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            transition: transform .4s;
         }
 
         .polaroid:hover {
             transform: rotate(-3deg) scale(1.1);
         }
 
-        /* Birthday Message */
-        #message-section {
-            background: #fff0f5;
-            padding: 25px 20px;
-            border-radius: 25px;
-            max-width: 450px;
-            margin: 20px auto;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-            display: none;
+        .polaroid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        #message-section h2 {
-            color: #ff69b4;
-            margin-bottom: 15px;
+        /* Envelope */
+        #letter-wrapper {
+            margin-top: 20px;
+        }
+
+        #envelope {
+            background: linear-gradient(135deg, #ffb6d9, #ffcce6);
+            padding: 25px;
+            border-radius: 18px;
+            cursor: pointer;
             font-family: 'HelloKitty', cursive;
-            font-size: 2rem;
-            text-shadow: 1px 1px #fff0f5;
+            font-size: 1.4rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 420px;
+            margin: 0 auto;
+            transition: transform .4s;
+        }
+
+        #envelope:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        /* Letter */
+        #message-section {
+            display: none;
+            background: #fffafc;
+            padding: 30px 25px;
+            border-radius: 20px;
+            max-width: 450px;
+            margin: 20px auto;
+            border: 2px dashed #ff69b4;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            transform: rotate(-1deg);
+            position: relative;
+        }
+
+        .fade-in {
+            animation: fadeSlide .8s ease forwards;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px) rotate(-1deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(-1deg);
+            }
+        }
+
+        #message-section::before,
+        #message-section::after {
+            content: "🎀";
+            position: absolute;
+            font-size: 22px;
+        }
+
+        #message-section::before {
+            top: -12px;
+            left: -12px;
+        }
+
+        #message-section::after {
+            bottom: -12px;
+            right: -12px;
         }
 
         #birthday-message {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #d61a9b;
+            white-space: pre-line;
+            line-height: 1.8;
             text-align: left;
+            color: #d61a9b;
+        }
+
+        .music-glow {
+            box-shadow: 0 0 35px #ffb6e6;
         }
 
         /* Bottom nav */
         #nav {
             position: fixed;
             bottom: 0;
-            left: 0;
             width: 100%;
             display: flex;
             justify-content: space-around;
@@ -275,90 +301,56 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #ff1493;
-            transition: transform 0.2s;
-        }
-
-        .nav-btn:hover {
-            transform: scale(1.2);
-        }
-
-        /* Responsive */
-        @media(max-width:600px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            #cake {
-                width: 220px;
-            }
-
-            .polaroid {
-                width: 120px;
-                height: 120px;
-            }
-
-            #message-section {
-                max-width: 90%;
-                padding: 18px;
-            }
         }
     </style>
 </head>
 
 <body class="desktop">
 
-    <!-- Loading Screen -->
     <div id="loading">
-        <img src="kitty-1.png" alt="Kitty 1">
-        <img src="kitty-2.png" alt="Kitty 2">
-        <img src="kitty-3.png" alt="Kitty 3">
+        <img src="kitty-1.png">
+        <img src="kitty-2.png">
+        <img src="kitty-3.png">
         <p id="loading-text">Loading your surprise...</p>
     </div>
 
-    <!-- Main Page -->
     <div class="main">
-        <h1>Happy 14th Birthday, Thando! 🎉</h1>
 
-        <!-- Home content -->
+        <h1>Happy 14th Birthday, Thando!</h1>
+
         <div id="home-section">
-            <img id="cake" src="cake.png" alt="Birthday Cake">
+            <img id="cake" src="cake.png">
             <div class="gallery">
-                <div class="polaroid"><img src="gallery-1.jpeg" alt="gallery-1"></div>
-                <div class="polaroid"><img src="gallery-2.jpeg" alt="gallery-2"></div>
-                <div class="polaroid"><img src="gallery-3.jpeg" alt="gallery-3"></div>
-                <div class="polaroid"><img src="gallery-4.jpeg" alt="gallery-4"></div>
-                <div class="polaroid"><img src="gallery-5.jpeg" alt="gallery-5"></div>
-                <div class="polaroid"><img src="gallery-6.jpeg" alt="gallery-6"></div>
+                <div class="polaroid"><img src="gallery-1.jpeg"></div>
+                <div class="polaroid"><img src="gallery-2.jpeg"></div>
+                <div class="polaroid"><img src="gallery-3.jpeg"></div>
+                <div class="polaroid"><img src="gallery-4.jpeg"></div>
+                <div class="polaroid"><img src="gallery-5.jpeg"></div>
+                <div class="polaroid"><img src="gallery-6.jpeg"></div>
             </div>
         </div>
 
-        <!-- Message section -->
-        <div id="message-section">
-            <h2>💖 A Special Birthday Thando 💖</h2>
-            <div id="birthday-message">
-                Happy Birthday to the life of every party! 🎉 You light up every room with your smile, and your dancing
-                is magical. Your laughter is contagious, your kindness inspiring, and your energy makes everyone around
-                you so happy. Keep shining, laughing, and dancing like the amazing star you are! 🌟💃 May this year be
-                full of joy, sparkles, and adventures your heart dreams of! 💖✨
+        <div id="letter-wrapper">
+            <div id="envelope">💌 Click to open your birthday letter</div>
+            <div id="message-section">
+                <h2>💖 A Special Birthday Message 💖</h2>
+                <div id="birthday-message"></div>
             </div>
         </div>
+
     </div>
 
-    <!-- Bottom navigation -->
     <div id="nav">
-        <button class="nav-btn" id="home-btn" title="Home"><i class="fas fa-home"></i></button>
-        <button class="nav-btn" id="message-btn" title="Message"><i class="fas fa-envelope"></i></button>
-        <button class="nav-btn" id="music-btn" title="Music"><i class="fas fa-music"></i></button>
+        <button class="nav-btn" id="home-btn"><i class="fas fa-home"></i></button>
+        <button class="nav-btn" id="message-btn"><i class="fas fa-envelope"></i></button>
+        <button class="nav-btn" id="music-btn"><i class="fas fa-music"></i></button>
     </div>
 
-    <!-- Audio -->
     <audio id="birthday-music" loop>
         <source src="celebration.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
     <script>
-        // Load main page after loading screen
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loading').style.display = 'none';
@@ -368,25 +360,23 @@
             }, 1200);
         });
 
-        // Sparkles
+        /* Sparkles */
         function spawnSparkles() {
             const cake = document.getElementById('cake');
-            const body = document.body;
             setInterval(() => {
                 const sparkle = document.createElement('div');
                 sparkle.classList.add('sparkle');
                 const rect = cake.getBoundingClientRect();
                 sparkle.style.left = rect.left + Math.random() * rect.width + 'px';
                 sparkle.style.top = rect.top + Math.random() * rect.height + 'px';
-                body.appendChild(sparkle);
+                document.body.appendChild(sparkle);
                 setTimeout(() => sparkle.remove(), 1200);
             }, 300);
         }
 
-        // Balloons
+        /* Balloons */
         function spawnBalloons() {
-            const colors = ['#ff69b4', '#43e8d8', '#ff77aa', '#B0E0E6', '#fff0f5', '#89ecda', '#bcf5f9', '#ffc0cb', '#ff8da1'];
-            const body = document.body;
+            const colors = ['#ff69b4', '#43e8d8', '#ff77aa', '#B0E0E6', '#ffc0cb'];
             setInterval(() => {
                 const balloon = document.createElement('div');
                 balloon.classList.add('balloon');
@@ -394,65 +384,99 @@
                 balloon.style.bottom = '-80px';
                 balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
                 balloon.style.animationDuration = (5 + Math.random() * 5) + 's';
-                body.appendChild(balloon);
-                setTimeout(() => balloon.remove(), 10000);
-            }, 800);
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 6000);
+            }, 600);
         }
 
-        // Confetti on cake
+        /* Confetti */
         document.getElementById('cake').addEventListener('click', () => {
             for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'fixed';
-                confetti.style.width = '8px';
-                confetti.style.height = '8px';
-                confetti.style.background = `hsl(${Math.random() * 360},100%,75%)`;
-                confetti.style.left = window.innerWidth / 2 + (Math.random() - 0.5) * 200 + 'px';
-                confetti.style.top = window.innerHeight / 2 + 'px';
-                confetti.style.opacity = 1;
-                confetti.style.borderRadius = '50%';
-                confetti.style.zIndex = 999;
-                confetti.style.pointerEvents = 'none';
-                document.body.appendChild(confetti);
-                const x = (Math.random() - 0.5) * 200;
-                const y = -Math.random() * 300;
-                const rotation = Math.random() * 360;
-                confetti.animate([{ transform: 'translate(0,0) rotate(0deg)', opacity: 1 }, { transform: `translate(${x}px,${y}px) rotate(${rotation}deg)`, opacity: 0 }], { duration: 2000 + Math.random() * 1000, easing: 'ease-out', fill: 'forwards' });
-                setTimeout(() => confetti.remove(), 3000);
+                const c = document.createElement('div');
+                c.style.position = 'fixed';
+                c.style.width = '8px';
+                c.style.height = '8px';
+                c.style.background = `hsl(${Math.random() * 360},100%,75%)`;
+                c.style.left = window.innerWidth / 2 + 'px';
+                c.style.top = window.innerHeight / 2 + 'px';
+                c.style.borderRadius = '50%';
+                c.style.pointerEvents = 'none';
+                document.body.appendChild(c);
+                c.animate([
+                    { transform: 'translate(0,0)', opacity: 1 },
+                    { transform: `translate(${(Math.random() - .5) * 300}px,${-Math.random() * 400}px)`, opacity: 0 }
+                ], { duration: 2000 + Math.random() * 1000, fill: 'forwards' });
+                setTimeout(() => c.remove(), 3000);
             }
         });
 
-        // Music toggle
-        const music = document.getElementById('birthday-music');
-        const musicBtn = document.getElementById('music-btn');
-        let musicPlaying = false;
-        musicBtn.addEventListener('click', () => {
-            if (musicPlaying) { music.pause(); musicBtn.innerHTML = '<i class="fas fa-music"></i>'; }
-            else { music.play(); musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; }
-            musicPlaying = !musicPlaying;
+        /* Letter + Typewriter */
+        const envelope = document.getElementById("envelope");
+        const messageSection = document.getElementById("message-section");
+        const messageElement = document.getElementById("birthday-message");
+
+        const messageText = `Happy 14th Birthday, Thando! 🎉
+        You're growing into such an amazing, kind, and beautiful person. Keep being the life of the party and lighting up every room with your smile. Watching you grow has been such a blessing.
+        Never forget how loved you are, how special you are, and how bright your future is. 💖 I hope this year is filled with laughter, happiness, and everything your heart dreams of.`;
+
+        let index = 0;
+        let hasTyped = false;
+
+        function typeWriter() {
+            if (index < messageText.length) {
+                messageElement.innerHTML += messageText.charAt(index);
+                index++;
+                setTimeout(typeWriter, 35);
+            }
+        }
+
+        envelope.addEventListener("click", () => {
+            envelope.style.display = "none";
+            messageSection.style.display = "block";
+            messageSection.classList.add("fade-in");
+            if (!hasTyped) {
+                typeWriter();
+                hasTyped = true;
+            }
         });
 
-        // Navigation
+        /* Navigation */
         const homeBtn = document.getElementById('home-btn');
         const messageBtn = document.getElementById('message-btn');
         const homeSection = document.getElementById('home-section');
-        const messageSection = document.getElementById('message-section');
 
         homeBtn.addEventListener('click', () => {
             homeSection.style.display = 'block';
             messageSection.style.display = 'none';
+            envelope.style.display = 'block';
         });
 
         messageBtn.addEventListener('click', () => {
             homeSection.style.display = 'none';
-            messageSection.style.display = 'block';
-            messageSection.scrollIntoView({ behavior: 'smooth' });
+            envelope.style.display = 'block';
+            messageSection.style.display = 'none';
+            document.getElementById('letter-wrapper').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        /* Music */
+        const music = document.getElementById('birthday-music');
+        const musicBtn = document.getElementById('music-btn');
+        let musicPlaying = false;
+
+        musicBtn.addEventListener('click', () => {
+            if (musicPlaying) {
+                music.pause();
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+                messageSection.classList.remove("music-glow");
+            } else {
+                music.play();
+                musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                messageSection.classList.add("music-glow");
+            }
+            musicPlaying = !musicPlaying;
         });
     </script>
 
 </body>
 
-
 </html>
-
-
